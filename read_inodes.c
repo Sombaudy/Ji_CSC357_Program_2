@@ -50,6 +50,7 @@ void loadInode(uint32_t inode, char type, int index, Inode inodeList[])
 
 	// Open the binary file in read mode
 	file = fopen(filename, "rb"); // "rb" stands for read binary
+	free(filename);
 
 	// Check if the file was opened successfully
 	if (file == NULL)
