@@ -51,15 +51,16 @@ void createDirectory(const char *name, Inode inodeList[], uint32_t *current, siz
 		int inode_num = *total;
 		int par = *current;
 		char dot = '.';
+        char null = '\0';
 		
 		fwrite(&inode_num, sizeof(int), 1, fp); //basically adds the default . and ..
-		fputc('\0', fp);
+		fwrite(&null, 1, 1, fp);
 		fwrite(&dot, sizeof(char), 1, fp);
 		for (int i = 0; i < 20; i++) {
 			fputc('\0', fp);
 		}
 		fwrite(&par, sizeof(int), 1, fp);
-		fputc('\0', fp);
+		fwrite(&null, 1, 1, fp);
 		fwrite(&dot, sizeof(char), 1, fp);
 		fwrite(&dot, sizeof(char), 1, fp);
 		for (int i = 0; i < 20; i++) {
@@ -79,7 +80,7 @@ void createDirectory(const char *name, Inode inodeList[], uint32_t *current, siz
 		}
 
 		fwrite(&inode_num, sizeof(int), 1, fp);
-		fputc('\0', fp);
+		fwrite(&null, 1, 1, fp);
 		fwrite(name, sizeof(char), strlen(name), fp);
 		for (int i = 0; i < 20; i++) {
 			fputc('\0', fp);
@@ -138,6 +139,7 @@ void createFile(const char *name, Inode inodeList[], uint32_t *current, size_t *
 		char parent[20];
 		snprintf(parent, sizeof(parent), "%d", (int)*current);
 		int inode_num = *total;
+        char null = '\0';
 		
 		fp = fopen(parent, "ab");
 		if (fp == NULL) {
@@ -146,7 +148,7 @@ void createFile(const char *name, Inode inodeList[], uint32_t *current, size_t *
 		}
 
 		fwrite(&inode_num, sizeof(int), 1, fp);
-		fputc('\0', fp);
+		fwrite(&null, 1, 1, fp);
 		fwrite(name, sizeof(char), strlen(name), fp);
 		for (int i = 0; i < 20; i++) {
 			fputc('\0', fp);

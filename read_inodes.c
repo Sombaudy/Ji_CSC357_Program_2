@@ -271,6 +271,7 @@ int main(int argc, char *argv[])
             printf("Exiting...\n");
 
 			char type;
+			//char null = '\0';
 
 			FILE *listp;
 			listp = fopen("inodes_list", "wb");
@@ -281,7 +282,9 @@ int main(int argc, char *argv[])
 
 			for (int i = 0; i < inodeCount; i++) {
 				fwrite(&i, sizeof(int), 1, listp);
-				fputc('\0', listp);
+				// for (int i = 0; i < 3; i++) {
+				// 	fwrite(&null, 1, 1, listp);
+				// }
 				type = inodeList[i].type;
 				fwrite(&type, sizeof(char), 1, listp);
 			}
@@ -380,7 +383,7 @@ int main(int argc, char *argv[])
 				} else if (count == 1) {
 					//printf("make file %s\n", file);
 					createFile(file, inodeList, &currentInode, &inodeCount);
-					printf("total inodes now: %d\n", (int)inodeCount);
+					//printf("total inodes now: %d\n", (int)inodeCount);
 				}
 			}
 
